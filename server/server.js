@@ -8,10 +8,14 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Conecte-se ao MongoDB
-mongoose.connect('mongodb://localhost:27017/motodb', {
+// Conecte-se ao MongoDB Atlas
+mongoose.connect('mongodb+srv://gs:123gs@gs.jn6fo.mongodb.net/gs?retryWrites=true&w=majority&appName=GS', {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}).then(() => {
+  console.log('Conexão ao MongoDB Atlas bem-sucedida');
+}).catch((error) => {
+  console.error('Erro ao conectar ao MongoDB Atlas:', error);
 });
 
 // Defina o modelo de moto
