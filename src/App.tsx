@@ -19,7 +19,7 @@ const App: React.FC = () => {
   const [isFooterVisible, setIsFooterVisible] = useState<boolean>(false);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/motos')
+    axios.get('https://gustavosadok.app/motos')
       .then(response => {
         setMotos(response.data);
       })
