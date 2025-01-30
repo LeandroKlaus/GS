@@ -11,23 +11,44 @@ import './styles/Footer.css';
 import './styles/Modal.css';
 import './App.css';
 
+// Definição da interface para a moto
+interface Moto {
+  modelo: string;
+  imagem: string;
+  consorcio: {
+    descricao: string;
+    valor: string;
+  };
+  fichaTecnica: string;
+}
+
+enum ModalType {
+  Financiamento = 'financiamento',
+  Consorcio = 'consorcio',
+  Informacoes = 'informacoes',
+}
+
 const App: React.FC = () => {
-  const [motos, setMotos] = useState<any[]>([]);
+  const [motos, setMotos] = useState<Moto[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [selectedMoto, setSelectedMoto] = useState<any>(null);
-  const [modalType, setModalType] = useState<string>('');
+  const [selectedMoto, setSelectedMoto] = useState<Moto | null>(null);
+  const [modalType, setModalType] = useState<ModalType | '']('');
   const [isFooterVisible, setIsFooterVisible] = useState<boolean>(false);
 
+  // Buscando motos da API
   useEffect(() => {
-    axios.get('https://gustavosadok.app/motos')
+    axios.get('https://sadok-054afdfba68d.herokuapp.com/motos')
       .then(response => {
-        setMotos(response.data);
+        if (response.status === 200) {
+          setMotos(response.data);
+        }
       })
       .catch(error => {
         console.error('Erro ao buscar motos', error);
       });
   }, []);
 
+  // Monitorando o scroll para exibir ou esconder o footer
   useEffect(() => {
     const handleScroll = () => {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -44,21 +65,22 @@ const App: React.FC = () => {
     };
   }, []);
 
-  const handleFinanciamento = (moto: any) => {
+  // Funções para controlar o comportamento dos modais
+  const handleFinanciamento = (moto: Moto) => {
     setSelectedMoto(moto);
-    setModalType('financiamento');
+    setModalType(ModalType.Financiamento);
     setShowModal(true);
   };
 
-  const handleConsorcio = (moto: any) => {
+  const handleConsorcio = (moto: Moto) => {
     setSelectedMoto(moto);
-    setModalType('consorcio');
+    setModalType(ModalType.Consorcio);
     setShowModal(true);
   };
 
-  const handleInformacoes = (moto: any) => {
+  const handleInformacoes = (moto: Moto) => {
     setSelectedMoto(moto);
-    setModalType('informacoes');
+    setModalType(ModalType.Informacoes);
     setShowModal(true);
   };
 
