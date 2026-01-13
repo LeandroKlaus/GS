@@ -1,57 +1,77 @@
 import React from 'react';
-import heroBike from '../assets/mt09_hero.png'; // Você pode usar a mt07.png ou mt03.png se não tiver outra
+import heroBike from '../assets/mt07.png'; // Ajustado para uma imagem que você tem (mt07.png)
 
 const Hero: React.FC = () => {
-  const sectionStyle = {
+  const sectionStyle: React.CSSProperties = {
     height: '90vh',
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: 'column' as 'column',
-    position: 'relative' as 'relative',
+    flexDirection: 'column',
+    position: 'relative',
     background: 'radial-gradient(circle at center, #1a202c 0%, var(--color-bg) 70%)',
-    textAlign: 'center' as 'center',
+    textAlign: 'center',
     padding: '0 20px',
-    marginTop: '-80px' 
+    marginTop: '-80px',
+    overflow: 'hidden'
   };
 
-  const titleStyle = {
+  const titleStyle: React.CSSProperties = {
     fontSize: 'clamp(3rem, 8vw, 6rem)',
     fontWeight: 700,
     color: 'transparent',
     WebkitTextStroke: '2px rgba(255,255,255,0.1)',
-    position: 'absolute' as 'absolute',
+    position: 'absolute',
     zIndex: 0,
     opacity: 0.5,
     top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    whiteSpace: 'nowrap' as 'nowrap',
+    whiteSpace: 'nowrap',
   };
 
-  const overlayTextStyle = {
+  // Estilo para a moto ficar ao fundo, misturada com o ambiente
+  const bikeStyle: React.CSSProperties = {
+    position: 'absolute',
+    top: '55%',
+    left: '50%',
+    transform: 'translate(-50%, -50%) scale(1.2)',
+    zIndex: 1, 
+    opacity: 0.4, // Transparência para dar efeito de fundo
+    width: '80%',
+    maxWidth: '800px',
+    pointerEvents: 'none',
+    filter: 'drop-shadow(0 0 30px rgba(0,71,187,0.3))' // Brilho azul sutil
+  };
+
+  const overlayTextStyle: React.CSSProperties = {
     zIndex: 2,
-    position: 'relative' as 'relative',
+    position: 'relative',
   };
 
   return (
     <section style={sectionStyle}>
+      {/* A imagem agora é utilizada aqui, resolvendo o erro TS6133 */}
+      <img src={heroBike} alt="Moto Destaque" style={bikeStyle} />
+
       <h1 style={titleStyle}>REVS YOUR HEART</h1>
       
       <div style={overlayTextStyle}>
         <h2 style={{ 
           fontSize: '3rem', 
           marginBottom: '10px', 
-          color: 'var(--color-primary)' 
+          color: 'var(--color-primary)',
+          textShadow: '0 4px 10px rgba(0,0,0,0.5)'
         }}>
           CONSULTORIA AUTORIZADA
         </h2>
         <p style={{ 
           fontSize: '1.2rem', 
-          color: 'var(--color-text-muted)', 
+          color: '#e0e0e0', 
           maxWidth: '600px', 
-          margin: '0 auto 40px' 
+          margin: '0 auto 40px',
+          textShadow: '0 2px 5px rgba(0,0,0,0.8)'
         }}>
           Acelere seus sonhos com a garantia e qualidade Yamaha. 
           Encontre a máquina perfeita para o seu estilo de vida.
